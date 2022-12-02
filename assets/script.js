@@ -19,7 +19,7 @@ console.log(queryURLGeocode);
 //sets local storage to the city the user typed//
 localStorage.setItem("city", userCity)
 
-
+//makes an API call for coordinates of the user's city input
 fetch(queryURLGeocode) 
 .then(response => response.json())
 .then(json => {
@@ -27,6 +27,7 @@ fetch(queryURLGeocode)
      var lon = json[0].lon;
      console.log(lat);
      console.log(lon);
+//uses those coordinates to get the five day forecast for that city
      var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat="+ lat + "&lon=" + lon + "&cnt=42&appid=" + APIKey;
      console.log(queryURL);
      return fetch(queryURL);
@@ -34,6 +35,7 @@ fetch(queryURLGeocode)
 .then (function (response) {
 return response.json();
 })
+//grabs five days from the array
 .then(function (data) {
   console.log(data);
   console.log(data.list[0]);
@@ -41,19 +43,21 @@ return response.json();
   console.log(data.list[16]);
   console.log(data.list[24]);
   console.log(data.list[32]);
-});
+  //gets the current forecast for the user's submitted city
+  lat = data.city.coord.lat;
+  lon = data.city.coord.lon;
+  var queryURLcurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+  return fetch(queryURLcurrent);
+})
+.then (function(response){
+  return response.json();
+})
+.then(function(data) {
+  console.log(data);
+})
 
 
   
 }
 
 searchForm.addEventListener('submit', formSubmit);
-
-
-// fetch(queryCrypto) .then(response => response.json())
-// .then(json => { 
-//     let coins = json.coins; 
-//     console.log(coins);
-//     console.log(coins[arrayPosition].item.id);
-
-// }); 
