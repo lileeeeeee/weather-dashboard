@@ -6,18 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <link rel="stylesheet" href="./assets/style.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
 <header>Weather Dashboard</header>
-  <div class = "searchContainer">
-   <form id="searchBox" class="searchForm">
-    <input id="userInput"class="searchForm" type="text" placeholder="type your city here">
-    <button id = "submitBtn" class="btn">Search</button>
+  <div class="columns">
+   <div class = "column"id = "search-results">
+    <form id="search-box">
+     <input id="user-input"type="text" placeholder="type your city here">
+      <button type="submit" id = "submitBtn" class="btn">Search</button>
    </form>
+    <ul id="city"></ul>
+   </div>
+  <div class= "column current" id= "current-weather">Current Weather</div>
+  <div class = "column"id = "five-day" >
+    <p id ="day-one" class="daybox">Day One</p>
+    <p id ="day-two" class="daybox">Day Two</p>
+    <p id ="day-three" class = "daybox">Day Three</p>
+    <p id ="day-four" class = "daybox">Day Four</p>
+    <p id ="day-five" class = "daybox">Day Five</p>
   </div>
-  <div id= "current-city" class = "currentCity"></div>
-  <div id = "five-day" class = "fiveDay"></div>
-  
+ </div>
+</div>
  <script src="./assets/script.js"></script>    
 </body>
 </html>
