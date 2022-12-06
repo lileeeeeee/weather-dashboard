@@ -3,7 +3,7 @@ This is a weather application that retrieves the current weather along with the 
 
 ## Installation
 Website is available here: https://lileeeeeee.github.io/weather-dashboard and looks like this:
-![screenshot](Assets/weatherscreenshot.jpg)
+![screenshot](assets/weatherscreenshot.jpg)
 
 ## Usage
 Type a city in the search box to see weather data. This application uses jQuery, Bulma and the OpenWeather API. It is formatted for desktop and mobile with the help of Bulma's mobile-first elements. 
