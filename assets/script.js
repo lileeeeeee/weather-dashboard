@@ -25,11 +25,7 @@ function formSubmit(event) {
     // displays the weather data for the the city the user typed
     findCity(userCity);
 
-    // checks for duplicate cities (doesn't work)
-    // if (localStorage.getItem("city-list").includes(userCity)) {
-    // return;
-    // }
-
+  
     // adds the city to the list on the page//
 
     var typedCity = document.createElement("li");
@@ -73,11 +69,12 @@ function findCity(userCity) {
             return response.json();
         }).then(function (data) { // grabs five days from the array.then(function (data) {
             console.log(data.list);
-            var one = data.list[8];
-            var two = data.list[16];``
-            var three = data.list[24];
-            var four = data.list[32];
-            var five = data.list[39];
+
+            var one = data.list[0];
+            var two = data.list[8];
+            var three = data.list[16];
+            var four = data.list[24];
+            var five = data.list[32];
 
             // each day is a UL element showing the date
             var dayOne = document.createElement("ul");
@@ -186,7 +183,7 @@ function findCity(userCity) {
             var current = data.main.temp;
             console.log(current);
             var currentDayDisplay = document.createElement("ul");
-            currentDayDisplay.textContent = Date().substring(0, 10);
+            currentDayDisplay.textContent = Date().substring(0, 15) + " " + data.name;
             var currentTemp = document.createElement("li");
             currentTemp.textContent = "temp: " + data.main.temp + " degrees";
             var currentWind = document.createElement("li");
