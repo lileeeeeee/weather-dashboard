@@ -12,8 +12,6 @@ var storedCities = [];
 
 function formSubmit(event) {
     event.preventDefault();
-    console.log(event.target);
-
     // gets the city the user typed
     userCity = document.querySelector('#user-input').value;
     console.log(userCity);
@@ -24,31 +22,44 @@ function formSubmit(event) {
 
     // displays the weather data for the the city the user typed
     findCity(userCity);
-
-  
     // adds the city to the list on the page//
-
     var typedCity = document.createElement("li");
+    // sets the text content of the li to the city the user typed
     typedCity.textContent = userCity;
-    cityList.append(typedCity);
+    // pushes the city the user typed to an array containing the cities searched
     storedCities.push(userCity);
-    localStorage.setItem("city-list", storedCities);
+
+    // checks for duplicates https://stackoverflow.com/questions/40305789/check-if-element-is-in-array-twice-time/40305862#40305862
+    function countInArray(storedCities, userCity) {
+        var count = 0;
+
+        for (let i = 0; i < storedCities.length; i++) {
+            if (storedCities[i] === userCity) {
+                count++;
+            }
+        }
+        return count;
+
+    }
+    if ((countInArray(storedCities, userCity)) > 1) {
+        console.log("duplicate")
+    } else {
+        cityList.append(typedCity);
+    }
+
     console.log(storedCities);
-    console.log(localStorage.getItem("city-list"));
     console.log(typedCity)
+    // when the city is clicked, listener grabs the text content on the li to search that city
     typedCity.addEventListener("click", function () {
         console.log(this.textContent);
-        findCity(userCity);
+        findCity(this.textContent);
     })
 }
 
-function findCity(userCity) {
-    // clears existing data from the page - added Jquery to use .empty function//
-    // resets city list in local storage//
-    localStorage.removeItem("city-list");
+function findCity(userCity) { // clears existing data from the page - added Jquery to use .empty function//
+
     $("p").empty();
     $("#current-weather").empty();
-
 
     // using only city for now, no state or country options//
     var queryURLGeocode = "https://api.openweathermap.org/geo/1.0/direct?q=" + userCity + "&limit=" + 1 + "&appid=" + APIKey;
@@ -70,11 +81,11 @@ function findCity(userCity) {
         }).then(function (data) { // grabs five days from the array.then(function (data) {
             console.log(data.list);
 
-            var one = data.list[0];
-            var two = data.list[8];
-            var three = data.list[16];
-            var four = data.list[24];
-            var five = data.list[32];
+            var one = data.list[8];
+            var two = data.list[16];
+            var three = data.list[24];
+            var four = data.list[32];
+            var five = data.list[39];
 
             // each day is a UL element showing the date
             var dayOne = document.createElement("ul");
@@ -112,7 +123,7 @@ function findCity(userCity) {
                 dayFourDisplay,
                 dayFiveDisplay
             ];
-                // sets icon for the five day forecast
+            // sets icon for the five day forecast
             for (let i = 0; i < 5; i++) { // gets the icon data for the day of the week
                 var iconData = fiveDayArray[i].weather[0].icon;
                 // gets the icon image
@@ -183,7 +194,7 @@ function findCity(userCity) {
             var current = data.main.temp;
             console.log(current);
             var currentDayDisplay = document.createElement("ul");
-            currentDayDisplay.textContent = Date().substring(0, 15) + " " + data.name;
+            currentDayDisplay.textContent = data.name + " " + Date().substring(0, 15);
             var currentTemp = document.createElement("li");
             currentTemp.textContent = "temp: " + data.main.temp + " degrees";
             var currentWind = document.createElement("li");
@@ -202,10 +213,11 @@ function findCity(userCity) {
             var liElements = document.getElementsByTagName('li');
             for (let i = 0; i <= liElements.length - 1; i++) {
                 liElements[i].setAttribute("class", "card-content")
+
             }
 
 
         });
-      });
-    }
-    searchForm.addEventListener('submit', formSubmit);
+    });
+}
+searchForm.addEventListener('submit', formSubmit);
