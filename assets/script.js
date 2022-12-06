@@ -51,7 +51,7 @@ function findCity(userCity) {
 
 
     // using only city for now, no state or country options//
-    var queryURLGeocode = "http://api.openweathermap.org/geo/1.0/direct?q=" + userCity + "&limit=" + 1 + "&appid=" + APIKey;
+    var queryURLGeocode = "https://api.openweathermap.org/geo/1.0/direct?q=" + userCity + "&limit=" + 1 + "&appid=" + APIKey;
     console.log(queryURLGeocode);
 
     // makes an API call for coordinates of the user's city input
@@ -63,7 +63,7 @@ function findCity(userCity) {
         console.log(lat);
         console.log(lon);
         // uses those coordinates to get the five day forecast for that city
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=50&appid=" + APIKey + "&units=imperial";
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=50&appid=" + APIKey + "&units=imperial";
         console.log(queryURL);
         fetch(queryURL).then(function (response) {
             return response.json();
@@ -116,7 +116,7 @@ function findCity(userCity) {
             for (let i = 0; i < 5; i++) { // gets the icon data for the day of the week
                 var iconData = fiveDayArray[i].weather[0].icon;
                 // gets the icon image
-                var iconPic = "http://openweathermap.org/img/w/" + iconData + ".png";
+                var iconPic = "https://openweathermap.org/img/w/" + iconData + ".png";
                 // creates Element
                 var iconEl = document.createElement("img");
                 // links to variable
