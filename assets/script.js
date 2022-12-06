@@ -193,7 +193,7 @@ function findCity(userCity) {
             var currentIcon = data.weather[0].icon;
             console.log(currentIcon);
             var currentIconDisplay = document.createElement("img")
-            var currentIconLink = "http://openweathermap.org/img/w/" + currentIcon + ".png";
+            var currentIconLink = "https://openweathermap.org/img/w/" + currentIcon + ".png";
             currentIconDisplay.setAttribute("id", "weather-icon");
             currentIconDisplay.setAttribute("src", currentIconLink);
 
